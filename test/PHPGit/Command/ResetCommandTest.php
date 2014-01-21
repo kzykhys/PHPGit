@@ -107,7 +107,7 @@ class ResetCommandTest extends BaseTestCase
     }
 
     /**
-     * @expectedException \PHPGit\Exception\GitException
+     * @expectedException InvalidArgumentException
      */
     public function testResetInvalidMode()
     {
