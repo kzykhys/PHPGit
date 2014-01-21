@@ -9,6 +9,7 @@ class GitExceptionTest extends PHPUnit_Framework_TestCase
     public function testException()
     {
         $git = new Git();
+        $git->setRepository(sys_get_temp_dir());
         try {
             $git->status();
             $this->fail('Previous operation should fail');
