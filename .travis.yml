@@ -8,6 +8,8 @@ php:
 before_script:
   - composer require --no-update satooshi/php-coveralls:dev-master@dev sensiolabs/security-checker:dev-master
   - composer update --dev --no-interaction
+  - git config --global user.name "John Doe"
+  - git config --global user.email "example@example.com"
 
 script:
   - mkdir -p build/logs
