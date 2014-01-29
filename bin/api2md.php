@@ -1,5 +1,7 @@
 <?php
 
+namespace KzykHys\bin;
+
 use PHPGit\Command;
 use PHPGit\Git;
 
@@ -36,15 +38,15 @@ function slugify($string)
 $git = new Git();
 $document = array();
 
-$refGitClass   = new ReflectionClass($git);
-$refProperties = $refGitClass->getProperties(ReflectionProperty::IS_PUBLIC);
+$refGitClass   = new \ReflectionClass($git);
+$refProperties = $refGitClass->getProperties(\ReflectionProperty::IS_PUBLIC);
 
 foreach ($refProperties as $refProperty) {
     // Class DocBlock
     if (!$object = $refProperty->getValue($git)) {
         continue;
     }
-    $refClass = new ReflectionClass($object);
+    $refClass = new \ReflectionClass($object);
     $docBlock = $refClass->getDocComment();
     $docBlock = preg_replace('/^(\/\*\*| *\*\/| *\* *)/m', '', $docBlock);
     $docBlock = trim($docBlock);
@@ -59,7 +61,7 @@ foreach ($refProperties as $refProperty) {
     );
 
     // Method Docblock
-    $refMethods = $refClass->getMethods(ReflectionMethod::IS_PUBLIC);
+    $refMethods = $refClass->getMethods(\ReflectionMethod::IS_PUBLIC);
 
     foreach ($refMethods as $refMethod) {
         $name = $refMethod->getName();
@@ -106,13 +108,13 @@ foreach ($refProperties as $refProperty) {
     }
 
     // Sub-commands
-    $refSubProperties = $refClass->getProperties(ReflectionProperty::IS_PUBLIC);
+    $refSubProperties = $refClass->getProperties(\ReflectionProperty::IS_PUBLIC);
     foreach ($refSubProperties as $refSubProperty) {
         if (!$subObject = $refSubProperty->getValue($object)) {
             continue;
         }
-        $refSubClass = new ReflectionClass($subObject);
-        $refSubMethods = $refSubClass->getMethods(ReflectionMethod::IS_PUBLIC);
+        $refSubClass = new \ReflectionClass($subObject);
+        $refSubMethods = $refSubClass->getMethods(\ReflectionMethod::IS_PUBLIC);
         foreach ($refSubMethods as $refSubMethod) {
             $subName = $refSubMethod->getName();
             if ((substr($subName, 0, 2) === '__' && $subName != '__invoke') || $subName === 'setDefaultOptions' || $subName === 'resolve') {
@@ -167,7 +169,7 @@ println('API');
 println('---');
 println();
 
-foreach ($document as $name => $definition) {
+foreach ($document as $definition) {
     println('* [', $definition['git'], '](#', slugify($definition['git']), ')');
     foreach ($definition['methods'] as $method) {
         $anchor = slugify($method['title']);
@@ -179,9 +181,7 @@ foreach ($document as $name => $definition) {
 
 println();
 
-$loop = 0;
-
-foreach ($document as $name => $definition) {
+foreach ($document as $definition) {
     println('* * * * *');
     println();
 
