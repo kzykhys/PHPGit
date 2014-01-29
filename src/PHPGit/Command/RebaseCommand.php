@@ -69,7 +69,7 @@ class RebaseCommand extends Command
             ->add('rebase')
             ->add('--continue');
 
-        $this->git->run($process = $builder->getProcess());
+        $this->git->run($builder->getProcess());
 
         return true;
     }
