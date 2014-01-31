@@ -66,6 +66,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * @license MIT
  *
  * @method add($file, $options = array())                           Add file contents to the index
+ * @method archive($file, $tree = null, $path = null, $options = array()) Create an archive of files from a named tree
  * @method branch($options = array())                               List both remote-tracking branches and local branches
  * @method checkout($branch, $options = array())                    Checkout a branch or paths to the working tree
  * @method clone($repository, $path = null, $options = array())     Clone a repository into a new directory
@@ -94,6 +95,9 @@ class Git
 
     /** @var Command\AddCommand */
     public $add;
+
+    /** @var Command\ArchiveCommand */
+    public $archive;
 
     /** @var Command\BranchCommand */
     public $branch;
@@ -179,6 +183,7 @@ class Git
     public function __construct()
     {
         $this->add      = new Command\AddCommand($this);
+        $this->archive  = new Command\ArchiveCommand($this);
         $this->branch   = new Command\BranchCommand($this);
         $this->cat      = new Command\CatCommand($this);
         $this->checkout = new Command\CheckoutCommand($this);

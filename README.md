@@ -55,8 +55,12 @@ foreach ($git->tree('release') as $object) {
 API
 ---
 
+### Git commands
+
 * [git add](#git-add)
     * $git->[add](#git-addstringarraytraversable-file-array-options--)(_string|array|\Traversable_ $file, _array_ $options = [])
+* [git archive](#git-archive)
+    * $git->[archive](#git-archivestring-file-string-tree--null-stringarraytraversable-path--null-array-options--)(_string_ $file, _string_ $tree = null, _string|array|\Traversable_ $path = null, _array_ $options = [])
 * [git branch](#git-branch)
     * $git->[branch](#git-brancharray-options--)(_array_ $options = [])
     * $git->branch->[create](#git-branch-createstring-branch-string-startpoint--null-array-options--)(_string_ $branch, _string_ $startPoint = null, _array_ $options = [])
@@ -166,13 +170,32 @@ Add file contents to the index
 $git = new PHPGit\Git();
 $git->setRepository('/path/to/repo');
 $git->add('file.txt');
-$git->add('file.txt', ['force' => false, 'ignore-errors' => false]);
+$git->add('file.txt', ['force' => false, 'ignore-errors' => false);
 ```
 
 ##### Options
 
 - **force**          (_boolean_) Allow adding otherwise ignored files
 - **ignore-errors**  (_boolean_) Do not abort the operation
+
+* * * * *
+
+### git archive
+
+#### $git->archive(_string_ $file, _string_ $tree = null, _string|array|\Traversable_ $path = null, _array_ $options = [])
+
+Create an archive of files from a named tree
+
+``` php
+$git = new PHPGit\Git();
+$git->setRepository('/path/to/repo');
+$git->archive('repo.zip', 'master', null, ['format' => 'zip']);
+```
+
+##### Options
+
+- **format** (_boolean_) Format of the resulting archive: tar or zip
+- **prefix** (_boolean_) Prepend prefix/ to each filename in the archive
 
 * * * * *
 
