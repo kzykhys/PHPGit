@@ -34,6 +34,8 @@ class PushCommand extends Command
         $builder = $this->git->getProcessBuilder()
             ->add('push');
 
+        $this->addFlags($builder, $options);
+
         if ($repository) {
             $builder->add($repository);
 
@@ -52,7 +54,12 @@ class PushCommand extends Command
      */
     public function setDefaultOptions(OptionsResolver $resolver)
     {
-
+        $resolver->setDefaults(array(
+            'all'    => false,
+            'mirror' => false,
+            'tags'   => false,
+            'force'  => false
+        ));
     }
 
 } 
