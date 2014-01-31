@@ -21,7 +21,7 @@ class AddCommand extends Command
      * $git = new PHPGit\Git();
      * $git->setRepository('/path/to/repo');
      * $git->add('file.txt');
-     * $git->add('file.txt', ['dry-run' => false, 'force' => false, 'ignore-errors' => false, 'ignore-missing' => false]);
+     * $git->add('file.txt', ['force' => false, 'ignore-errors' => false);
      * ```
      *
      * ##### Options

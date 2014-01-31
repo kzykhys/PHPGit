@@ -168,6 +168,8 @@ println();
 println('API');
 println('---');
 println();
+println('### Git commands');
+println();
 
 foreach ($document as $definition) {
     println('* [', $definition['git'], '](#', slugify($definition['git']), ')');
