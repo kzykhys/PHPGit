@@ -49,7 +49,9 @@ class DescribeCommand extends Command
 
         $this->addFlags($builder, $options, array());
 
-        $builder->add($committish);
+        if ($committish) {
+            $builder->add($committish);
+        }
 
         return trim($this->git->run($builder->getProcess()));
     }
