@@ -50,7 +50,7 @@ class TagCommandTest extends BaseTestCase
         $filesystem->dumpFile($this->directory . '/README.md', 'hello');
         $git->add('.');
         $git->commit('Initial commit');
-        $log = $git->log(null, array('limit' => 1));
+        $log = $git->log(null, null, array('limit' => 1));
         $git->tag->create('v1.0.0', $log[0]['hash']);
         $this->assertCount(1, $git->tag());
     }

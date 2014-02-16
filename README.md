@@ -91,7 +91,7 @@ API
 * [git init](#git-init)
     * $git->[init](#git-initstring-path-array-options--)(_string_ $path, _array_ $options = [])
 * [git log](#git-log)
-    * $git->[log](#git-logstring-path--null-array-options--)(_string_ $path = null, _array_ $options = [])
+    * $git->[log](#git-logstring-revrange---string-path--null-array-options--)(_string_ $revRange = '', _string_ $path = null, _array_ $options = [])
 * [git merge](#git-merge)
     * $git->[merge](#git-mergestringarraytraversable-commit-string-message--null-array-options--)(_string|array|\Traversable_ $commit, _string_ $message = null, _array_ $options = [])
     * $git->merge->[abort](#git-merge-abort)()
@@ -523,7 +523,7 @@ $git->init('/path/to/repo2', array('shared' => true, 'bare' => true));
 
 ### git log
 
-#### $git->log(_string_ $path = null, _array_ $options = [])
+#### $git->log(_string_ $revRange = '', _string_ $path = null, _array_ $options = [])
 
 Returns the commit logs
 

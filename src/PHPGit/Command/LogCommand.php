@@ -45,13 +45,14 @@ class LogCommand extends Command
      * - **limit** (_integer_) Limits the number of commits to show
      * - **skip**  (_integer_) Skip number commits before starting to show the commit output
      *
-     * @param string $path    [optional] Show only commits that are enough to explain how the files that match the specified paths came to be
-     * @param array  $options [optional] An array of options {@see LogCommand::setDefaultOptions}
+     * @param string $revRange [optional] Show only commits in the specified revision range
+     * @param string $path     [optional] Show only commits that are enough to explain how the files that match the specified paths came to be
+     * @param array  $options  [optional] An array of options {@see LogCommand::setDefaultOptions}
      *
      * @throws GitException
      * @return array
      */
-    public function __invoke($path = null, array $options = array())
+    public function __invoke($revRange = '', $path = null, array $options = array())
     {
         $commits = array();
         $options = $this->resolve($options);
@@ -61,6 +62,10 @@ class LogCommand extends Command
             ->add('-n')->add($options['limit'])
             ->add('--skip=' . $options['skip'])
             ->add('--format=%H||%aN||%aE||%aD||%s');
+
+        if ($revRange) {
+            $builder->add($revRange);
+        }
 
         if ($path) {
             $builder->add('--')->add($path);
