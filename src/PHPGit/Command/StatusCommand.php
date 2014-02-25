@@ -111,9 +111,13 @@ class StatusCommand extends Command
         $output  = $this->git->run($process);
 
         list($branch, $changes) = preg_split('/(\0|\n)/', $output, 2);
-        $lines  = $this->split($changes, true);
+        $lines = $this->split($changes, true);
 
-        if (preg_match('/ ([^ ]*)$/', $branch, $matches)) {
+        if (substr($branch, -11) == '(no branch)') {
+            $result['branch'] = null;
+        } elseif (preg_match('/([^ ]*)\.\.\..*?\[.*?\]$/', $branch, $matches)) {
+            $result['branch'] = $matches[1];
+        } elseif (preg_match('/ ([^ ]*)$/', $branch, $matches)) {
             $result['branch'] = $matches[1];
         }
 

@@ -38,4 +38,39 @@ class StatusCommandTest extends BaseTestCase
         ), $status);
     }
 
+    public function testDetachedHeadStatus()
+    {
+        $filesystem = new Filesystem();
+
+        $git = new Git();
+        $git->init($this->directory);
+        $git->setRepository($this->directory);
+
+        $filesystem->dumpFile($this->directory . '/item1.txt', '1');
+        $git->add('item1.txt');
+        $git->commit('initial commit');
+        $logs = $git->log();
+        $hash = $logs[0]['hash'];
+
+        $git->checkout($hash);
+        $status = $git->status();
+        $this->assertEquals(null, $status['branch']);
+    }
+
+    public function testTrackingBranchStatus()
+    {
+        $filesystem = new Filesystem();
+
+        $git = new Git();
+        $git->clone('https://github.com/kzykhys/Text.git', $this->directory);
+        $git->setRepository($this->directory);
+
+        $filesystem->dumpFile($this->directory . '/test.txt', '1');
+        $git->add('test.txt');
+        $git->commit('test');
+
+        $status = $git->status();
+        $this->assertEquals('master', $status['branch']);
+    }
+
 } 
