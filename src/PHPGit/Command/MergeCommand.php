@@ -21,7 +21,7 @@ class MergeCommand extends Command
      * $git = new PHPGit\Git();
      * $git->setRepository('/path/to/repo');
      * $git->merge('1.0');
-     * $git->merge('1.1', ['strategy' => 'ours']);
+     * $git->merge('1.1', 'Merge message', ['strategy' => 'ours']);
      * ```
      *
      * ##### Options
