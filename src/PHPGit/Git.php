@@ -84,6 +84,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * @method remote()                                                 Returns an array of existing remotes
  * @method reset($commit = null, $paths = array())                  Resets the index entries for all <paths> to their state at <commit>
  * @method rm($file, $options = array())                            Remove files from the working tree and from the index
+ * @method shortlog($commits = array())                             Summarize 'git log' output
  * @method show($object, $options = array())                        Shows one or more objects (blobs, trees, tags and commits)
  * @method stash()                                                  Save your local modifications to a new stash, and run git reset --hard to revert them
  * @method status($options = array())                               Show the working tree status
@@ -156,6 +157,9 @@ class Git
     /** @var Command\RmCommand */
     public $rm;
 
+    /** @var Command\ShortlogCommand */
+    public $shortlog;
+
     /** @var Command\ShowCommand */
     public $show;
 
@@ -202,6 +206,7 @@ class Git
         $this->remote   = new Command\RemoteCommand($this);
         $this->reset    = new Command\ResetCommand($this);
         $this->rm       = new Command\RmCommand($this);
+        $this->shortlog = new Command\ShortlogCommand($this);
         $this->show     = new Command\ShowCommand($this);
         $this->stash    = new Command\StashCommand($this);
         $this->status   = new Command\StatusCommand($this);
