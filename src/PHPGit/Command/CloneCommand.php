@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Clone a repository into a new directory - `git clone`
@@ -60,7 +60,7 @@ class CloneCommand extends Command
      * - **shared** (_boolean_) Starts out without any object of its own
      * - **bare**   (_boolean_) Make a bare GIT repository
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'shared' => false,

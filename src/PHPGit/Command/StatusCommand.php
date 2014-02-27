@@ -3,7 +3,7 @@
 namespace PHPGit\Command;
 
 use PHPGit\Command;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Show the working tree status - `git status`
@@ -137,7 +137,7 @@ class StatusCommand extends Command
      *
      * - **ignored** (_boolean_) Show ignored files as well
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'ignored' => false

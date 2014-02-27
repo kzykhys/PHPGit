@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Checkout a branch or paths to the working tree - `git checkout`
@@ -134,7 +134,7 @@ class CheckoutCommand extends Command
      * - **force** (_boolean_) Proceed even if the index or the working tree differs from HEAD
      * - **merge** (_boolean_) Merges local modification
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'force' => false,

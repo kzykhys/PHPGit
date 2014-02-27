@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Create an empty git repository or reinitialize an existing one - `git init`
@@ -54,7 +54,7 @@ class InitCommand extends Command
      * - **shared** (_boolean_) Specify that the git repository is to be shared amongst several users
      * - **bare**   (_boolean_) Create a bare repository
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'shared' => false,

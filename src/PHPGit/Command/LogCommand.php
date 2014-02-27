@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Show commit logs - `git log`
@@ -94,7 +94,7 @@ class LogCommand extends Command
      * - **limit** (_integer_) Limits the number of commits to show
      * - **skip**  (_integer_) Skip number commits before starting to show the commit output
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'limit' => 10,

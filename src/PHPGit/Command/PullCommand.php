@@ -3,7 +3,7 @@
 namespace PHPGit\Command;
 
 use PHPGit\Command;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Fetch from and merge with another repository or a local branch - `git pull`
@@ -51,7 +51,7 @@ class PullCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
 
     }

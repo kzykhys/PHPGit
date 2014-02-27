@@ -3,7 +3,7 @@
 namespace PHPGit\Command;
 
 use PHPGit\Command;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Update remote refs along with associated objects - `git push`
@@ -52,7 +52,7 @@ class PushCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'all'    => false,

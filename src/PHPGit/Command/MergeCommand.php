@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Join two or more development histories together - `git merge`
@@ -95,7 +95,7 @@ class MergeCommand extends Command
      * - **strategy**            (_string_)  Use the given merge strategy
      * - **strategy-option**     (_string_)  Pass merge strategy specific option through to the merge strategy
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'no-ff'             => false,

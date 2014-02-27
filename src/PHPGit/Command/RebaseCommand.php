@@ -3,7 +3,7 @@
 namespace PHPGit\Command;
 
 use PHPGit\Command;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Forward-port local commits to the updated upstream head - `git rebase`
@@ -113,7 +113,7 @@ class RebaseCommand extends Command
      * - **no-verify**     (_boolean_) Bypasses the pre-rebase hook
      * - **force-rebase**  (_boolean_) Force the rebase even if the current branch is a descendant of the commit you are rebasing onto
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'onto'         => null,
