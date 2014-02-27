@@ -135,6 +135,9 @@ API
 * [git rm](#git-rm)
     * $git->[rm](#git-rmstringarraytraversable-file-array-options--)(_string|array|\Traversable_ $file, _array_ $options = [])
     * $git->rm->[cached](#git-rm-cachedstringarraytraversable-file-array-options--)(_string|array|\Traversable_ $file, _array_ $options = [])
+* [git shortlog](#git-shortlog)
+    * $git->[shortlog](#git-shortlogstringarraytraversable-commits--head)(_string|array|\Traversable_ $commits = HEAD)
+    * $git->shortlog->[summary](#git-shortlog-summarystring-commits--head)(_string_ $commits = HEAD)
 * [git show](#git-show)
     * $git->[show](#git-showstring-object-array-options--)(_string_ $object, _array_ $options = [])
 * [git stash](#git-stash)
@@ -1029,6 +1032,51 @@ Equivalent to $git->rm($file, ['cached' => true]);
 
 - **force**     (_boolean_) Override the up-to-date check
 - **recursive** (_boolean_) Allow recursive removal when a leading directory name is given
+
+* * * * *
+
+### git shortlog
+
+#### $git->shortlog(_string|array|\Traversable_ $commits = HEAD)
+
+Summarize 'git log' output
+
+``` php
+$git = new PHPGit\Git();
+$git->setRepository('/path/to/repo');
+$shortlog = $git->shortlog();
+```
+
+##### Output Example
+
+``` php
+[
+    'John Doe <john@example.com>' => [
+        0 => ['commit' => '589de67', 'date' => new \DateTime('2014-02-10 12:56:15 +0300'), 'subject' => 'Update README'],
+        1 => ['commit' => '589de67', 'date' => new \DateTime('2014-02-15 12:56:15 +0300'), 'subject' => 'Update README'],
+    ],
+    //...
+]
+```
+
+#### $git->shortlog->summary(_string_ $commits = HEAD)
+
+Suppress commit description and provide a commit count summary only
+
+``` php
+$git = new PHPGit\Git();
+$git->setRepository('/path/to/repo');
+$shortlog = $git->shortlog->summary();
+```
+
+##### Output Example
+
+``` php
+[
+    'John Doe <john@example.com>' => 153,
+    //...
+]
+```
 
 * * * * *
 
