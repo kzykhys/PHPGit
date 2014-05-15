@@ -63,6 +63,7 @@ class BranchCommand extends Command
         $lines = preg_split('/\r?\n/', rtrim($process->getOutput()), -1, PREG_SPLIT_NO_EMPTY);
 
         foreach ($lines as $line) {
+
             $branch = array(
 				'current' => '',
 				'name' => '',
@@ -70,7 +71,10 @@ class BranchCommand extends Command
 				'alias' => '',
 				'hash' => ''
 			);
-            preg_match('/(?<current>\*| ) (?<name>[^\s]+) +((?:->) (?<alias>[^\s]+)|(?<hash>[0-9a-z]{7}) (?<title>.*))/', $line, $matches);
+            preg_match('/(?<current>\*| ) (?<name>[^\s]+)?(?<nobranch>\([\s\w]+\))? +((?:->) (?<alias>[^\s]+)|(?<hash>[0-9a-z]{7}) (?<title>.*))/', $line, $matches);
+            if (array_key_exists('nobranch', $matches) && $matches['nobranch']) {
+                $matches['name'] = $matches['nobranch'];
+            }
 
 			if(isset($matches['current'])) {
 				$branch['current'] = ($matches['current'] == '*');
