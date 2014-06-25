@@ -75,7 +75,7 @@ class LogCommand extends Command
         $lines  = $this->split($output);
 
         foreach ($lines as $line) {
-            list($hash, $name, $email, $date, $title) = preg_split('/\|\|/', $line, -1, PREG_SPLIT_NO_EMPTY);
+            list($hash, $name, $email, $date, $title) = preg_split('/\|\|/', $line, -1);
             $commits[] = array(
                 'hash'  => $hash,
                 'name'  => $name,
