@@ -29,4 +29,17 @@ class ArchiveCommandTest extends BaseTestCase
         $this->assertFileExists($this->directory . '/test.zip');
     }
 
+    public function testRemoteArchive()
+    {
+        $git = new Git();
+        $git->init($this->directory);
+
+        # We expect to get github.com to throw an exception since it doesn't allow remote archives
+        $this->setExpectedException('PHPGit\Exception\GitException', "Invalid command: 'git-upload-archive '");
+        $git->archive($this->directory . '/test_test.zip', 'master', null, array(
+            'format' => 'zip',
+            'remote' => 'ssh://git@github.com/kzykhys/PHPGit.git'
+        ));
+    }
+
 } 

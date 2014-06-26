@@ -50,6 +50,10 @@ class ArchiveCommand extends Command
             $builder->add('--prefix=' . $options['prefix']);
         }
 
+        if ($options['remote']) {
+            $builder->add('--remote=' . $options['remote']);
+        }
+
         $builder->add('-o')->add($file);
 
         if ($tree) {
@@ -79,12 +83,14 @@ class ArchiveCommand extends Command
     {
         $resolver->setDefaults(array(
             'format' => null,
-            'prefix' => null
+            'prefix' => null,
+            'remote' => null
         ));
 
         $resolver->setAllowedTypes(array(
             'format' => array('null', 'string'),
-            'prefix' => array('null', 'string')
+            'prefix' => array('null', 'string'),
+            'remote' => array('null', 'string')
         ));
 
         $resolver->setAllowedValues(array(
