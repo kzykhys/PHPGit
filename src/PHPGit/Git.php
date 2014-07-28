@@ -181,10 +181,13 @@ class Git
     /** @var string  */
     private $directory = '.';
 
+    /** @var integer  */
+    private $timeout = 60;
+
     /**
      * Initializes sub-commands
      */
-    public function __construct()
+    public function __construct($timeout = 60)
     {
         $this->add      = new Command\AddCommand($this);
         $this->archive  = new Command\ArchiveCommand($this);
@@ -212,6 +215,8 @@ class Git
         $this->status   = new Command\StatusCommand($this);
         $this->tag      = new Command\TagCommand($this);
         $this->tree     = new Command\TreeCommand($this);
+        
+        $this->timeout = $timeout;
     }
 
     /**
@@ -283,7 +288,8 @@ class Git
     {
         return ProcessBuilder::create()
             ->setPrefix($this->bin)
-            ->setWorkingDirectory($this->directory);
+            ->setWorkingDirectory($this->directory)
+            ->setTimeout($this->timeout);
     }
 
     /**
