@@ -181,6 +181,9 @@ class Git
     /** @var string  */
     private $directory = '.';
 
+    /** @var int */
+    private $timeout = 60;
+
     /**
      * Initializes sub-commands
      */
@@ -275,6 +278,30 @@ class Git
     }
 
     /**
+     * Sets ProcessBuilder timeout
+     *
+     * @param int $timeout
+     *
+     * @return Git
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+
+        return $this;
+    }
+
+    /**
+     * Returns ProcessBuilder timeout
+     *
+     * @return int
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    /**
      * Returns an instance of ProcessBuilder
      *
      * @return ProcessBuilder
@@ -283,7 +310,8 @@ class Git
     {
         return ProcessBuilder::create()
             ->setPrefix($this->bin)
-            ->setWorkingDirectory($this->directory);
+            ->setWorkingDirectory($this->directory)
+            ->setTimeout($this->timeout);
     }
 
     /**
