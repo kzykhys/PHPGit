@@ -127,12 +127,16 @@ class Git implements ProcessBuilderProvider, ProcessRunner
     /** @var string  */
     private $directory = '.';
 
+
     private $commands;
 
     /**
      * @var Config
      */
     private $config;
+
+    /** @var int */
+    private $timeout = 60;
 
     /**
      * Initializes sub-commands
@@ -250,6 +254,30 @@ class Git implements ProcessBuilderProvider, ProcessRunner
     }
 
     /**
+     * Sets ProcessBuilder timeout
+     *
+     * @param int $timeout
+     *
+     * @return Git
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+
+        return $this;
+    }
+
+    /**
+     * Returns ProcessBuilder timeout
+     *
+     * @return int
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    /**
      * Returns an instance of ProcessBuilder
      *
      * @return ProcessBuilder
@@ -258,7 +286,8 @@ class Git implements ProcessBuilderProvider, ProcessRunner
     {
         return ProcessBuilder::create()
             ->setPrefix($this->bin)
-            ->setWorkingDirectory($this->directory);
+            ->setWorkingDirectory($this->directory)
+            ->setTimeout($this->timeout);
     }
 
     /**
