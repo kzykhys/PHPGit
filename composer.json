@@ -1,5 +1,5 @@
 {
-    "name": "kzykhys/git",
+    "name": "mosch/php-git",
     "description": "A Git wrapper for PHP5.3+",
     "license": "MIT",
     "minimum-stability": "stable",
@@ -7,6 +7,10 @@
         {
             "name": "Kazuyuki Hayashi",
             "email": "hayashi@valnur.net"
+        },
+        {
+            "name": "Moritz Schwoerer",
+            "email": "mr.mosch@gmail.com"
         }
     ],
     "require": {
