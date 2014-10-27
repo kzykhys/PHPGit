@@ -42,7 +42,7 @@ class MergeCommand extends Command
     public function __invoke($commit, $message = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('merge');
 
         $this->addFlags($builder, $options, array('no-ff', 'rerere-autoupdate', 'squash'));
@@ -54,7 +54,7 @@ class MergeCommand extends Command
             $builder->add($value);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -77,11 +77,11 @@ class MergeCommand extends Command
      */
     public function abort()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('merge')
             ->add('--abort');
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

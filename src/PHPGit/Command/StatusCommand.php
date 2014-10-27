@@ -100,7 +100,7 @@ class StatusCommand extends Command
     public function __invoke(array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('status')
             ->add('--porcelain')->add('-s')->add('-b')->add('--null');
 
@@ -108,7 +108,7 @@ class StatusCommand extends Command
 
         $process = $builder->getProcess();
         $result  = array('branch' => null, 'changes' => array());
-        $output  = $this->git->run($process);
+        $output  = $this->processRunner->run($process);
 
         list($branch, $changes) = preg_split('/(\0|\n)/', $output, 2);
         $lines = $this->split($changes, true);

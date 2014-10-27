@@ -58,7 +58,7 @@ class BranchCommand extends Command
         }
 
         $process = $builder->getProcess();
-        $this->git->run($process);
+        $this->processRunner->run($process);
 
         $lines = preg_split('/\r?\n/', rtrim($process->getOutput()), -1, PREG_SPLIT_NO_EMPTY);
 
@@ -121,7 +121,7 @@ class BranchCommand extends Command
             $builder->add($startPoint);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -158,7 +158,7 @@ class BranchCommand extends Command
         }
 
         $builder->add($branch)->add($newBranch);
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -196,7 +196,7 @@ class BranchCommand extends Command
         }
 
         $builder->add($branch);
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -222,7 +222,7 @@ class BranchCommand extends Command
      */
     protected function getProcessBuilder()
     {
-        return $this->git->getProcessBuilder()
+        return $this->processBuilderProvider->getProcessBuilder()
             ->add('branch');
     }
 

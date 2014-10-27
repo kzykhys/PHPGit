@@ -25,10 +25,10 @@ class StashCommand extends Command
      */
     public function __invoke()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash');
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -50,13 +50,13 @@ class StashCommand extends Command
     public function save($message = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('save');
 
         $builder->add($message);
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -85,11 +85,11 @@ class StashCommand extends Command
      */
     public function lists(array $options = array())
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('list');
 
-        $output = $this->git->run($builder->getProcess());
+        $output = $this->processRunner->run($builder->getProcess());
         $lines  = $this->split($output);
         $list   = array();
 
@@ -127,7 +127,7 @@ class StashCommand extends Command
      */
     public function show($stash = null)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('show');
 
@@ -135,7 +135,7 @@ class StashCommand extends Command
             $builder->add($stash);
         }
 
-        return $this->git->run($builder->getProcess());
+        return $this->processRunner->run($builder->getProcess());
     }
 
     /**
@@ -153,7 +153,7 @@ class StashCommand extends Command
      */
     public function drop($stash = null)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('drop');
 
@@ -161,7 +161,7 @@ class StashCommand extends Command
             $builder->add($stash);
         }
 
-        return $this->git->run($builder->getProcess());
+        return $this->processRunner->run($builder->getProcess());
     }
 
     /**
@@ -181,7 +181,7 @@ class StashCommand extends Command
     public function pop($stash = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('pop');
 
@@ -191,7 +191,7 @@ class StashCommand extends Command
             $builder->add($stash);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -213,7 +213,7 @@ class StashCommand extends Command
     public function apply($stash = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('apply');
 
@@ -223,7 +223,7 @@ class StashCommand extends Command
             $builder->add($stash);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -244,7 +244,7 @@ class StashCommand extends Command
      */
     public function branch($name, $stash = null)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('branch')
             ->add($name);
@@ -253,7 +253,7 @@ class StashCommand extends Command
             $builder->add($stash);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -271,11 +271,11 @@ class StashCommand extends Command
      */
     public function clear()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('clear');
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -299,11 +299,11 @@ class StashCommand extends Command
      */
     public function create()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('stash')
             ->add('create');
 
-        return $this->git->run($builder->getProcess());
+        return $this->processRunner->run($builder->getProcess());
     }
     
 } 

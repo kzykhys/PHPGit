@@ -57,7 +57,7 @@ class LogCommand extends Command
         $commits = array();
         $options = $this->resolve($options);
 
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('log')
             ->add('-n')->add($options['limit'])
             ->add('--skip=' . $options['skip'])
@@ -71,7 +71,7 @@ class LogCommand extends Command
             $builder->add('--')->add($path);
         }
 
-        $output = $this->git->run($builder->getProcess());
+        $output = $this->processRunner->run($builder->getProcess());
         $lines  = $this->split($output);
 
         foreach ($lines as $line) {

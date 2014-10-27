@@ -31,7 +31,7 @@ class PushCommand extends Command
     public function __invoke($repository = null, $refspec = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('push');
 
         $this->addFlags($builder, $options);
@@ -44,7 +44,7 @@ class PushCommand extends Command
             }
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

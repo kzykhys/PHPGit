@@ -40,9 +40,9 @@ class TreeCommand extends Command
     public function __invoke($branch = 'master', $path = '')
     {
         $objects = array();
-        $builder = $this->git->getProcessBuilder();
+        $builder = $this->processBuilderProvider->getProcessBuilder();
         $process = $builder->add('ls-tree')->add($branch . ':' . $path)->getProcess();
-        $output  = $this->git->run($process);
+        $output  = $this->processRunner->run($process);
         $lines   = $this->split($output);
 
         $types = array(
@@ -56,7 +56,7 @@ class TreeCommand extends Command
             list($mode, $type, $hash) = explode(" ", $meta);
 
             $objects[] = array(
-                'sort' => sprintf('%d:%s', $types[$type], $file),
+                'sort' => $file,
                 'mode' => $mode,
                 'type' => $type,
                 'hash' => $hash,

@@ -36,7 +36,7 @@ class RmCommand extends Command
     public function __invoke($file, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('rm');
 
         $this->addFlags($builder, $options, array('force', 'cached'));
@@ -53,7 +53,7 @@ class RmCommand extends Command
             $builder->add($value);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

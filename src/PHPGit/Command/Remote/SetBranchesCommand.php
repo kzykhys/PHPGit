@@ -49,7 +49,7 @@ class SetBranchesCommand extends Command
      */
     public function set($name, array $branches)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('set-branches')
             ->add($name);
@@ -58,7 +58,7 @@ class SetBranchesCommand extends Command
             $builder->add($branch);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -80,7 +80,7 @@ class SetBranchesCommand extends Command
      */
     public function add($name, array $branches)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('set-branches')
             ->add($name)
@@ -90,7 +90,7 @@ class SetBranchesCommand extends Command
             $builder->add($branch);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

@@ -29,7 +29,7 @@ class ResetCommand extends Command
      */
     public function __invoke($paths, $commit = null)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('reset');
 
         if ($commit) {
@@ -45,7 +45,7 @@ class ResetCommand extends Command
         }
 
         try {
-            $this->git->run($builder->getProcess());
+            $this->processRunner->run($builder->getProcess());
         } catch (GitException $e) {
             // Confirm exit code
         }
@@ -183,7 +183,7 @@ class ResetCommand extends Command
             throw new \InvalidArgumentException('$mode must be one of the following: soft, mixed, hard, merge, keep');
         }
 
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('reset')
             ->add('--' . $mode);
 
@@ -191,7 +191,7 @@ class ResetCommand extends Command
             $builder->add($commit);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

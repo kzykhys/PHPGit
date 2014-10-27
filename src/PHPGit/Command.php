@@ -15,16 +15,23 @@ abstract class Command
 {
 
     /**
-     * @var Git
+     * @var ProcessBuilderProvider
      */
-    protected $git;
+    protected $processBuilderProvider;
 
     /**
-     * @param Git $git
+     * @var ProcessRuner
      */
-    public function __construct(Git $git)
+    protected $processRunner;
+
+    /**
+     * @param ProcessBuilderProvider $processBuilderProvider
+     * @param ProcessRunner $processRunner
+     */
+    public function __construct(ProcessBuilderProvider $processBuilderProvider, ProcessRunner $processRunner)
     {
-        $this->git = $git;
+        $this->processBuilderProvider = $processBuilderProvider;
+        $this->processRunner = $processRunner;
     }
 
     /**

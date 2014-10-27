@@ -35,7 +35,7 @@ class ShowCommand extends Command
     public function __invoke($object, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('show');
 
         $this->addFlags($builder, $options, array('abbrev-commit'));
@@ -46,7 +46,7 @@ class ShowCommand extends Command
 
         $builder->add($object);
 
-        return $this->git->run($builder->getProcess());
+        return $this->processRunner->run($builder->getProcess());
     }
 
     /**

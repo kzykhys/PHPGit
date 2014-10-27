@@ -32,7 +32,7 @@ class PullCommand extends Command
     public function __invoke($repository = null, $refspec = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('pull');
 
         if ($repository) {
@@ -43,7 +43,7 @@ class PullCommand extends Command
             }
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

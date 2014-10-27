@@ -44,14 +44,14 @@ class CommitCommand extends Command
     public function __invoke($message, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('commit')
             ->add('-m')->add($message);
 
         $this->addFlags($builder, $options, array('all', 'amend'));
         $this->addValues($builder, $options, array('reuse-message', 'squash', 'author', 'date', 'cleanup'));
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

@@ -41,7 +41,7 @@ class FetchCommand extends Command
     public function __invoke($repository, $refspec = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('fetch');
 
         $this->addFlags($builder, $options);
@@ -51,7 +51,7 @@ class FetchCommand extends Command
             $builder->add($refspec);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -81,13 +81,13 @@ class FetchCommand extends Command
     public function all(array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('fetch')
             ->add('--all');
 
         $this->addFlags($builder, $options);
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

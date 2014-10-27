@@ -37,13 +37,13 @@ class CheckoutCommand extends Command
     public function __invoke($branch, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('checkout');
 
         $this->addFlags($builder, $options, array('force', 'merge'));
 
         $builder->add($branch);
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -72,7 +72,7 @@ class CheckoutCommand extends Command
     public function create($branch, $startPoint = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('checkout')
             ->add('-b');
 
@@ -84,7 +84,7 @@ class CheckoutCommand extends Command
             $builder->add($startPoint);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -112,7 +112,7 @@ class CheckoutCommand extends Command
     public function orphan($branch, $startPoint = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('checkout');
 
         $this->addFlags($builder, $options, array('force', 'merge'));
@@ -123,7 +123,7 @@ class CheckoutCommand extends Command
             $builder->add($startPoint);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

@@ -37,7 +37,7 @@ class CloneCommand extends Command
     public function __invoke($repository, $path = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('clone')
             ->add('--quiet');
 
@@ -49,7 +49,7 @@ class CloneCommand extends Command
             $builder->add($path);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

@@ -35,7 +35,7 @@ class MvCommand extends Command
     public function __invoke($source, $destination, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('mv');
 
         $this->addFlags($builder, $options, array('force'));
@@ -50,7 +50,7 @@ class MvCommand extends Command
 
         $builder->add($destination);
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

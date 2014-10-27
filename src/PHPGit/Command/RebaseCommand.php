@@ -38,7 +38,7 @@ class RebaseCommand extends Command
     public function __invoke($upstream = null, $branch = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('rebase');
 
         if ($options['onto']) {
@@ -53,7 +53,7 @@ class RebaseCommand extends Command
             $builder->add($branch);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -65,11 +65,11 @@ class RebaseCommand extends Command
      */
     public function continues()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('rebase')
             ->add('--continue');
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -81,11 +81,11 @@ class RebaseCommand extends Command
      */
     public function abort()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('rebase')
             ->add('--abort');
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -97,11 +97,11 @@ class RebaseCommand extends Command
      */
     public function skip()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('rebase')
             ->add('--skip');
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

@@ -4,6 +4,8 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Git;
+use PHPGit\ProcessBuilderProvider;
+use PHPGit\ProcessRunner;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -27,17 +29,15 @@ class RemoteCommand extends Command
     /** @var Remote\SetUrlCommand */
     public $url;
 
-    /**
-     * @param Git $git
-     */
-    public function __construct(Git $git)
+    public function __construct(ProcessBuilderProvider $processBuilderProvider, ProcessRunner $processRunner)
     {
-        parent::__construct($git);
+        parent::__construct($processBuilderProvider, $processRunner);
 
-        $this->head     = new Remote\SetHeadCommand($git);
-        $this->branches = new Remote\SetBranchesCommand($git);
-        $this->url      = new Remote\SetUrlCommand($git);
+        $this->head     = new Remote\SetHeadCommand($processBuilderProvider, $processRunner);
+        $this->branches = new Remote\SetBranchesCommand($processBuilderProvider, $processRunner);
+        $this->url      = new Remote\SetUrlCommand($processBuilderProvider, $processRunner);
     }
+
 
     /**
      * Calls sub-commands
@@ -82,12 +82,12 @@ class RemoteCommand extends Command
      */
     public function __invoke()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('-v');
 
         $remotes = array();
-        $output  = $this->git->run($builder->getProcess());
+        $output  = $this->processRunner->run($builder->getProcess());
         $lines   = $this->split($output);
 
         foreach ($lines as $line) {
@@ -127,7 +127,7 @@ class RemoteCommand extends Command
     public function add($name, $url, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('add');
 
@@ -135,7 +135,7 @@ class RemoteCommand extends Command
 
         $builder->add($name)->add($url);
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -157,13 +157,13 @@ class RemoteCommand extends Command
      */
     public function rename($name, $newName)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('rename')
             ->add($name)
             ->add($newName);
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -184,12 +184,12 @@ class RemoteCommand extends Command
      */
     public function rm($name)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('rm')
             ->add($name);
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -225,12 +225,12 @@ class RemoteCommand extends Command
      */
     public function show($name)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('show')
             ->add($name);
 
-        return $this->git->run($builder->getProcess());
+        return $this->processRunner->run($builder->getProcess());
     }
 
     /**
@@ -248,7 +248,7 @@ class RemoteCommand extends Command
      */
     public function prune($name = null)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('prune');
 
@@ -256,7 +256,7 @@ class RemoteCommand extends Command
             $builder->add($name);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

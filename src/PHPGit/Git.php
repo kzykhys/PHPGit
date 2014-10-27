@@ -90,128 +90,86 @@ use Symfony\Component\Process\ProcessBuilder;
  * @method status($options = array())                               Show the working tree status
  * @method tag()                                                    Returns an array of tags
  * @method tree($branch = 'master', $path = '')                     List the contents of a tree object
- */
-class Git
+ *
+ * @var Command\AddCommand
+ * @var Command\ArchiveCommand 
+ * @var Command\BranchCommand 
+ * @var Command\CatCommand 
+ * @var Command\CheckoutCommand 
+ * @var Command\CloneCommand 
+ * @var Command\CommitCommand 
+ * @var Command\ConfigCommand 
+ * @var Command\DescribeCommand 
+// Not implemented yet
+ * @var Command\FetchCommand 
+ * @var Command\InitCommand 
+ * @var Command\LogCommand 
+ * @var Command\MergeCommand 
+ * @var Command\MvCommand 
+ * @var Command\PullCommand 
+ * @var Command\PushCommand 
+ * @var Command\RebaseCommand 
+ * @var Command\RemoteCommand 
+ * @var Command\ResetCommand 
+ * @var Command\RmCommand 
+ * @var Command\ShortlogCommand 
+ * @var Command\ShowCommand 
+ * @var Command\StashCommand 
+ * @var Command\StatusCommand 
+ * @var Command\TagCommand 
+ * @var Command\TreeCommand
+ **/
+class Git implements ProcessBuilderProvider, ProcessRunner
 {
-
-    /** @var Command\AddCommand */
-    public $add;
-
-    /** @var Command\ArchiveCommand */
-    public $archive;
-
-    /** @var Command\BranchCommand */
-    public $branch;
-
-    /** @var Command\CatCommand */
-    public $cat;
-
-    /** @var Command\CheckoutCommand */
-    public $checkout;
-
-    /** @var Command\CloneCommand */
-    public $clone;
-
-    /** @var Command\CommitCommand */
-    public $commit;
-
-    /** @var Command\ConfigCommand */
-    public $config;
-
-    /** @var Command\DescribeCommand */
-    public $describe;
-
-    // Not implemented yet
-    public $diff;
-
-    /** @var Command\FetchCommand */
-    public $fetch;
-
-    /** @var Command\InitCommand */
-    public $init;
-
-    /** @var Command\LogCommand */
-    public $log;
-
-    /** @var Command\MergeCommand */
-    public $merge;
-
-    /** @var Command\MvCommand */
-    public $mv;
-
-    /** @var Command\PullCommand */
-    public $pull;
-
-    /** @var Command\PushCommand */
-    public $push;
-
-    /** @var Command\RebaseCommand */
-    public $rebase;
-
-    /** @var Command\RemoteCommand */
-    public $remote;
-
-    /** @var Command\ResetCommand */
-    public $reset;
-
-    /** @var Command\RmCommand */
-    public $rm;
-
-    /** @var Command\ShortlogCommand */
-    public $shortlog;
-
-    /** @var Command\ShowCommand */
-    public $show;
-
-    /** @var Command\StashCommand */
-    public $stash;
-
-    /** @var Command\StatusCommand */
-    public $status;
-
-    /** @var Command\TagCommand */
-    public $tag;
-
-    /** @var Command\TreeCommand */
-    public $tree;
-
     /** @var string  */
     private $bin = 'git';
 
     /** @var string  */
     private $directory = '.';
 
+    private $commands;
+
+    /**
+     * @var Config
+     */
+    private $config;
+
     /**
      * Initializes sub-commands
+     * @param array $config
      */
-    public function __construct()
+    public function __construct(array $config = array())
     {
-        $this->add      = new Command\AddCommand($this);
-        $this->archive  = new Command\ArchiveCommand($this);
-        $this->branch   = new Command\BranchCommand($this);
-        $this->cat      = new Command\CatCommand($this);
-        $this->checkout = new Command\CheckoutCommand($this);
-        $this->clone    = new Command\CloneCommand($this);
-        $this->commit   = new Command\CommitCommand($this);
-        $this->config   = new Command\ConfigCommand($this);
-        $this->describe = new Command\DescribeCommand($this);
-        $this->fetch    = new Command\FetchCommand($this);
-        $this->init     = new Command\InitCommand($this);
-        $this->log      = new Command\LogCommand($this);
-        $this->merge    = new Command\MergeCommand($this);
-        $this->mv       = new Command\MvCommand($this);
-        $this->pull     = new Command\PullCommand($this);
-        $this->push     = new Command\PushCommand($this);
-        $this->rebase   = new Command\RebaseCommand($this);
-        $this->remote   = new Command\RemoteCommand($this);
-        $this->reset    = new Command\ResetCommand($this);
-        $this->rm       = new Command\RmCommand($this);
-        $this->shortlog = new Command\ShortlogCommand($this);
-        $this->show     = new Command\ShowCommand($this);
-        $this->stash    = new Command\StashCommand($this);
-        $this->status   = new Command\StatusCommand($this);
-        $this->tag      = new Command\TagCommand($this);
-        $this->tree     = new Command\TreeCommand($this);
+        $this->config = new Config($config);
+        $this->commands = array(
+            'add' => new Command\AddCommand($this, $this),
+            'archive' => new Command\ArchiveCommand($this, $this),
+            'branch' => new Command\BranchCommand($this, $this),
+            'cat' => new Command\CatCommand($this, $this),
+            'checkout' => new Command\CheckoutCommand($this, $this),
+            'clone' => new Command\CloneCommand($this, $this),
+            'commit' => new Command\CommitCommand($this, $this),
+            'config' => new Command\ConfigCommand($this, $this),
+            'describe' => new Command\DescribeCommand($this, $this),
+            'fetch' => new Command\FetchCommand($this, $this),
+            'init' => new Command\InitCommand($this, $this),
+            'log' => new Command\LogCommand($this, $this),
+            'merge' => new Command\MergeCommand($this, $this),
+            'mv' => new Command\MvCommand($this, $this),
+            'pull' => new Command\PullCommand($this, $this),
+            'push' => new Command\PushCommand($this, $this),
+            'rebase' => new Command\RebaseCommand($this, $this),
+            'remote' => new Command\RemoteCommand($this, $this),
+            'reset' => new Command\ResetCommand($this, $this),
+            'rm' => new Command\RmCommand($this, $this),
+            'shortlog' => new Command\ShortlogCommand($this, $this),
+            'show' => new Command\ShowCommand($this, $this),
+            'stash' => new Command\StashCommand($this, $this),
+            'status' => new Command\StatusCommand($this, $this),
+            'tag' => new Command\TagCommand($this, $this),
+            'tree' => new Command\TreeCommand($this, $this),
+        );      
+        
     }
 
     /**
@@ -225,12 +183,29 @@ class Git
      */
     public function __call($name, $arguments)
     {
-        if (isset($this->{$name}) && is_callable($this->{$name})) {
-            return call_user_func_array($this->{$name}, $arguments);
+        if (isset($this->commands[$name]) && is_callable($this->commands[$name])) {
+            return call_user_func_array($this->commands[$name], $arguments);
         }
 
-        throw new \BadMethodCallException(sprintf('Call to undefined method PHPGit\Git::%s()', $name));
+        throw new \BadMethodCallException(sprintf('Command %s is undefined no valid command in %s::%s()', $name, __CLASS__, $name));
     }
+
+    /**
+     * Access sub-commands
+     *
+     * @param $name
+     *
+     * @return Commands
+     */
+    public function __get($name)
+    {
+        if (isset($this->commands[$name])) {
+            return $this->commands[$name];
+        }
+
+        throw new \BadMethodCallException(sprintf('Command %s is undefined no valid command in %s::%s()', $name, __CLASS__, $name));
+    }
+
 
     /**
      * Sets the Git binary path
@@ -292,7 +267,7 @@ class Git
      * @param Process $process The process to run
      *
      * @throws Exception\GitException
-     * @return mixed
+     * @return string
      */
     public function run(Process $process)
     {

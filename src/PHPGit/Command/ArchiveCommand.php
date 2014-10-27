@@ -39,7 +39,7 @@ class ArchiveCommand extends Command
     public function __invoke($file, $tree = null, $path = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('archive');
 
         if ($options['format']) {
@@ -64,7 +64,7 @@ class ArchiveCommand extends Command
             $builder->add($value);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

@@ -49,7 +49,7 @@ class SetHeadCommand extends Command
      */
     public function set($name, $branch)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('set-head')
             ->add($name);
@@ -58,7 +58,7 @@ class SetHeadCommand extends Command
             $builder->add($branch);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -79,13 +79,13 @@ class SetHeadCommand extends Command
      */
     public function delete($name)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('set-head')
             ->add($name)
             ->add('-d');
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -106,13 +106,13 @@ class SetHeadCommand extends Command
      */
     public function remote($name)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('remote')
             ->add('set-head')
             ->add($name)
             ->add('-a');
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

@@ -38,7 +38,7 @@ class ShortlogCommand extends Command
      */
     public function __invoke($commits = 'HEAD')
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('shortlog')
             ->add('--numbered')
             ->add('--format=')
@@ -56,7 +56,7 @@ class ShortlogCommand extends Command
         $process = $builder->getProcess();
         $process->setCommandLine(str_replace('--format=', '--format=%h|%ci|%s', $process->getCommandLine()));
 
-        $output = $this->git->run($process);
+        $output = $this->processRunner->run($process);
         $lines  = $this->split($output);
         $result = array();
         $author = null;
@@ -105,7 +105,7 @@ class ShortlogCommand extends Command
      */
     public function summary($commits = 'HEAD')
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('shortlog')
             ->add('--numbered')
             ->add('--summary')
@@ -119,7 +119,7 @@ class ShortlogCommand extends Command
             $builder->add($commit);
         }
 
-        $output = $this->git->run($builder->getProcess());
+        $output = $this->processRunner->run($builder->getProcess());
         $lines  = $this->split($output);
         $result = array();
 

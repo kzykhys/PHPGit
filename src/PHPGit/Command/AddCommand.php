@@ -38,7 +38,7 @@ class AddCommand extends Command
     public function __invoke($file, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('add');
 
         $this->addFlags($builder, $options);
@@ -51,7 +51,7 @@ class AddCommand extends Command
             $builder->add($value);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

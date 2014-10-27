@@ -31,7 +31,7 @@ class ConfigCommand extends Command
     public function __invoke(array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('config')
             ->add('--list')
             ->add('--null');
@@ -39,7 +39,7 @@ class ConfigCommand extends Command
         $this->addFlags($builder, $options, array('global', 'system'));
 
         $config = array();
-        $output = $this->git->run($builder->getProcess());
+        $output = $this->processRunner->run($builder->getProcess());
         $lines  = $this->split($output, true);
 
         foreach ($lines as $line) {
@@ -73,14 +73,14 @@ class ConfigCommand extends Command
     public function set($name, $value, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('config');
 
         $this->addFlags($builder, $options, array('global', 'system'));
 
         $builder->add($name)->add($value);
         $process = $builder->getProcess();
-        $this->git->run($process);
+        $this->processRunner->run($process);
 
         return true;
     }
@@ -103,14 +103,14 @@ class ConfigCommand extends Command
     public function add($name, $value, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('config');
 
         $this->addFlags($builder, $options, array('global', 'system'));
 
         $builder->add('--add')->add($name)->add($value);
         $process = $builder->getProcess();
-        $this->git->run($process);
+        $this->processRunner->run($process);
 
         return true;
     }

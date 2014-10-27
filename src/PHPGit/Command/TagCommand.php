@@ -35,10 +35,10 @@ class TagCommand extends Command
      */
     public function __invoke()
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('tag');
 
-        $output = $this->git->run($builder->getProcess());
+        $output = $this->processRunner->run($builder->getProcess());
 
         return $this->split($output);
     }
@@ -68,7 +68,7 @@ class TagCommand extends Command
     public function create($tag, $commit = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('tag')
             ->add($tag);
 
@@ -78,7 +78,7 @@ class TagCommand extends Command
             $builder->add($commit);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -93,7 +93,7 @@ class TagCommand extends Command
      */
     public function delete($tag)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('tag')
             ->add('-d');
 
@@ -105,7 +105,7 @@ class TagCommand extends Command
             $builder->add($value);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }
@@ -120,7 +120,7 @@ class TagCommand extends Command
      */
     public function verify($tag)
     {
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('tag')
             ->add('-v');
 
@@ -132,7 +132,7 @@ class TagCommand extends Command
             $builder->add($value);
         }
 
-        $this->git->run($builder->getProcess());
+        $this->processRunner->run($builder->getProcess());
 
         return true;
     }

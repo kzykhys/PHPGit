@@ -44,7 +44,7 @@ class DescribeCommand extends Command
     public function __invoke($committish = null, array $options = array())
     {
         $options = $this->resolve($options);
-        $builder = $this->git->getProcessBuilder()
+        $builder = $this->processBuilderProvider->getProcessBuilder()
             ->add('describe');
 
         $this->addFlags($builder, $options, array());
@@ -53,7 +53,7 @@ class DescribeCommand extends Command
             $builder->add($committish);
         }
 
-        return trim($this->git->run($builder->getProcess()));
+        return trim($this->processRunner->run($builder->getProcess()));
     }
 
     /**
