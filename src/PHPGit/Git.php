@@ -75,7 +75,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * @method describe($committish = null, $options = array())         Returns the most recent tag that is reachable from a commit
  * @method fetch($repository, $refspec = null, $options = array())  Fetches named heads or tags from one or more other repositories
  * @method init($path, $options = array())                          Create an empty git repository or reinitialize an existing one
- * @method log($path = null, $options = array())                    Returns the commit logs
+ * @method log($revRange = '', $path = null, array $options = array()) Returns the commit logs
  * @method merge($commit, $message = null, $options = array())      Incorporates changes from the named commits into the current branch
  * @method mv($source, $destination, $options = array())            Move or rename a file, a directory, or a symlink
  * @method pull($repository = null, $refspec = null, $options = array()) Fetch from and merge with another repository or a local branch
