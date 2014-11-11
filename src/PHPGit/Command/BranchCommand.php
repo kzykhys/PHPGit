@@ -50,11 +50,11 @@ class BranchCommand extends Command
             ->add('-v')->add('--abbrev=7');
 
         if ($options['remotes']) {
-            $builder->add('--remotes');
+            $builder->add('-r');
         }
 
         if ($options['all']) {
-            $builder->add('--all');
+            $builder->add('-a');
         }
 
         $process = $builder->getProcess();
