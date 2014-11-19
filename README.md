@@ -6,10 +6,10 @@ PHPGit - A Git wrapper for PHP5.3+
 [![Coverage Status](https://coveralls.io/repos/kzykhys/PHPGit/badge.png)](https://coveralls.io/r/kzykhys/PHPGit)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/04f10b57-a113-47ad-8dda-9a6dacbb079f/mini.png)](https://insight.sensiolabs.com/projects/04f10b57-a113-47ad-8dda-9a6dacbb079f)
 
-Requirements
+Requirements  
 ------------
 
-* PHP5.3
+* PHP5.3 as
 * Git
 
 Installation
