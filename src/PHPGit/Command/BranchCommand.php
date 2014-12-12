@@ -66,17 +66,25 @@ class BranchCommand extends Command
             $branch = array();
             preg_match('/(?<current>\*| ) (?<name>[^\s]+) +((?:->) (?<alias>[^\s]+)|(?<hash>[0-9a-z]{7}) (?<title>.*))/', $line, $matches);
 
-            $branch['current'] = ($matches['current'] == '*');
-            $branch['name']    = $matches['name'];
+            if(!empty($matches['current'])){
+                $branch['current'] = ($matches['current'] == '*');
+            }else{
+                $branch['current'] = null;
+            }
+
+            $branch['name'] = !empty($matches['name']) ? $matches['name'] : null;
 
             if (isset($matches['hash'])) {
                 $branch['hash']  = $matches['hash'];
                 $branch['title'] = $matches['title'];
             } else {
-                $branch['alias'] = $matches['alias'];
+                $branch['alias'] = !empty($matches['alias']) ? $matches['alias'] : null;
             }
 
-            $branches[$matches['name']] = $branch;
+            if(!empty($matches['name'])){
+                $branches[$matches['name']] = $branch;
+            }
+
         }
 
         return $branches;
