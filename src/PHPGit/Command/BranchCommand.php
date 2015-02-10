@@ -64,7 +64,7 @@ class BranchCommand extends Command
 
         foreach ($lines as $line) {
             $branch = array();
-            preg_match('/(?<current>\*| ) (?<name>[^\s]+) +((?:->) (?<alias>[^\s]+)|(?<hash>[0-9a-z]{7}) (?<title>.*))/', $line, $matches);
+            preg_match('/(?<current>\*| ) (?<name>[^\s]+) +((?:->) (?<alias>[^\s]+)|(?<hash>[0-9a-z]{7,8}) (?<title>.*))/', $line, $matches);
 
             $branch['current'] = ($matches['current'] == '*');
             $branch['name']    = $matches['name'];
