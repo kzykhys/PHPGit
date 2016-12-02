@@ -98,6 +98,7 @@ class FetchCommand extends Command
      * - **append** (_boolean_) Append ref names and object names of fetched refs to the existing contents of .git/FETCH_HEAD
      * - **keep**   (_boolean_) Keep downloaded pack
      * - **prune**  (_boolean_) After fetching, remove any remote-tracking branches which no longer exist on the remote
+     * - **tags**  (_boolean_) Fetch all tags from the remote (i.e., fetch remote tags refs/tags/* into local tags with the same name), in addition to whatever else would otherwise be fetched
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -106,6 +107,7 @@ class FetchCommand extends Command
             //'force'  => false,
             'keep'   => false,
             'prune'  => false,
+            'tags'  => false,
         ));
     }
 
