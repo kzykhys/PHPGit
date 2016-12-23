@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Record changes to the repository - `git commit`
@@ -67,7 +67,7 @@ class CommitCommand extends Command
      * - **cleanup**       (_string_)  Can be one of verbatim, whitespace, strip, and default
      * - **amend**         (_boolean_) Used to amend the tip of the current branch
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'all'           => false,

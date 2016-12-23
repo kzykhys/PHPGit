@@ -3,7 +3,7 @@
 namespace PHPGit\Command;
 
 use PHPGit\Command;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Remove files from the working tree and from the index - `git rm`
@@ -85,7 +85,7 @@ class RmCommand extends Command
      * - **cached**    (_boolean_) Unstage and remove paths only from the index
      * - **recursive** (_boolean_) Allow recursive removal when a leading directory name is given
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'force'     => false,

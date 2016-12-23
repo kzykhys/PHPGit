@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Download objects and refs from another repository - `git fetch`
@@ -99,7 +99,7 @@ class FetchCommand extends Command
      * - **keep**   (_boolean_) Keep downloaded pack
      * - **prune**  (_boolean_) After fetching, remove any remote-tracking branches which no longer exist on the remote
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'append' => false,

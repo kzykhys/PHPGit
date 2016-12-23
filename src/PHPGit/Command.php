@@ -3,7 +3,6 @@
 namespace PHPGit;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -45,11 +44,11 @@ abstract class Command
     /**
      * Sets the default options
      *
-     * @param OptionsResolverInterface $resolver The resolver for the options
+     * @param OptionsResolver $resolver The resolver for the options
      *
      * @codeCoverageIgnore
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
     }
 

@@ -3,7 +3,7 @@
 namespace PHPGit\Command;
 
 use PHPGit\Command;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Move or rename a file, a directory, or a symlink - `git mv`
@@ -60,7 +60,7 @@ class MvCommand extends Command
      *
      * - **force** (_boolean_) Force renaming or moving of a file even if the target exists
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'force' => false

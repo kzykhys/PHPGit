@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Git;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Manage set of tracked repositories - `git remote`
@@ -267,7 +267,7 @@ class RemoteCommand extends Command
      * - **tags**    (_boolean_) With this option, `git fetch <name>` imports every tag from the remote repository
      * - **no-tags** (_boolean_) With this option, `git fetch <name>` does not import tags from the remote repository
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'tags'    => false,

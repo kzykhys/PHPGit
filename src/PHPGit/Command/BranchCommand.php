@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * List, create, or delete branches - `git branch`
@@ -208,7 +208,7 @@ class BranchCommand extends Command
      * - **all**     (_boolean_) List both remote-tracking branches and local branches
      * - **remotes** (_boolean_) List or delete (if used with delete()) the remote-tracking branches
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'force'   => false,

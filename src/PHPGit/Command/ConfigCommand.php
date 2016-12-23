@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Get and set repository or global options - `git config`
@@ -121,7 +121,7 @@ class ConfigCommand extends Command
      * - **global** (_boolean_) Read or write configuration options for the current user
      * - **system** (_boolean_) Read or write configuration options for all users on the current machine
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'global' => false,
