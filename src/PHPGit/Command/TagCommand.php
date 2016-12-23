@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Create, list, delete or verify a tag object signed with GPG - `git tag`
@@ -144,7 +144,7 @@ class TagCommand extends Command
      * - **sign**     (_boolean_) Make a GPG-signed tag, using the default e-mail address’s key
      * - **force**    (_boolean_) Replace an existing tag with the given name (instead of failing)
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'annotate' => false,

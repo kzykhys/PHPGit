@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Add file contents to the index - `git add`
@@ -62,7 +62,7 @@ class AddCommand extends Command
      * - **force**          (_boolean_) Allow adding otherwise ignored files
      * - **ignore-errors**  (_boolean_) Do not abort the operation
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             //'dry-run'        => false,

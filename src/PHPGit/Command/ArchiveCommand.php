@@ -4,7 +4,7 @@ namespace PHPGit\Command;
 
 use PHPGit\Command;
 use PHPGit\Exception\GitException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Create an archive of files from a named tree - `git archive`
@@ -75,7 +75,7 @@ class ArchiveCommand extends Command
      * - **format** (_boolean_) Format of the resulting archive: tar or zip
      * - **prefix** (_boolean_) Prepend prefix/ to each filename in the archive
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'format' => null,

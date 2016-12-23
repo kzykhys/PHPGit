@@ -3,7 +3,7 @@
 namespace PHPGit\Command\Remote;
 
 use PHPGit\Command;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Changes URL remote points to
@@ -165,7 +165,7 @@ class SetUrlCommand extends Command
      *
      * - **push** (_boolean_) Push URLs are manipulated instead of fetch URLs
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'push' => false
