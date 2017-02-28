@@ -92,6 +92,8 @@ API
     * $git->[init](#git-initstring-path-array-options--)(_string_ $path, _array_ $options = [])
 * [git log](#git-log)
     * $git->[log](#git-logstring-revrange---string-path--null-array-options--)(_string_ $revRange = '', _string_ $path = null, _array_ $options = [])
+* [git blame](#git-blame)
+    * $git->[blame](#git-blamestring-file---string-hash)(_string_ $file, _string_ $hash = null)
 * [git merge](#git-merge)
     * $git->[merge](#git-mergestringarraytraversable-commit-string-message--null-array-options--)(_string|array|\Traversable_ $commit, _string_ $message = null, _array_ $options = [])
     * $git->merge->[abort](#git-merge-abort)()
@@ -557,6 +559,38 @@ $logs = $git->log(array('limit' => 10));
 
 - **limit** (_integer_) Limits the number of commits to show
 - **skip**  (_integer_) Skip number commits before starting to show the commit output
+
+* * * * *
+
+### git blame
+
+#### $git->blame(_string_ $file, _string_ $hash = null)
+
+Returns the file lines with the blame information
+
+``` php
+$git = new PHPGit\Git();
+$git->setRepository('/path/to/repo');
+$fileLine = $git->blame('test.txt'));
+$fileLine = $git->blame('test.txt', '1a821f3f8483747fd045eb1f5a31c3cc3063b02b'));
+```
+
+##### Output Example
+
+``` php
+[
+    0 => [
+        'line_number'  => '1',
+        'hash'         => '1a821f3f8483747fd045eb1f5a31c3cc3063b02b',
+        'name'         => 'John Doe',
+        'date'         => '2015-07-01 18:20:04 +1000',
+        'line_content' => "<?php"
+    ],
+    1 => [
+        //...
+    ]
+]
+```
 
 * * * * *
 
