@@ -76,6 +76,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * @method fetch($repository, $refspec = null, $options = array())  Fetches named heads or tags from one or more other repositories
  * @method init($path, $options = array())                          Create an empty git repository or reinitialize an existing one
  * @method log($path = null, $options = array())                    Returns the commit logs
+ * @method blame($file = null, $hash = null)                        Returns the file lines with blame
  * @method merge($commit, $message = null, $options = array())      Incorporates changes from the named commits into the current branch
  * @method mv($source, $destination, $options = array())            Move or rename a file, a directory, or a symlink
  * @method pull($repository = null, $refspec = null, $options = array()) Fetch from and merge with another repository or a local branch
@@ -198,6 +199,7 @@ class Git
         $this->fetch    = new Command\FetchCommand($this);
         $this->init     = new Command\InitCommand($this);
         $this->log      = new Command\LogCommand($this);
+        $this->blame    = new Command\BlameCommand($this);
         $this->merge    = new Command\MergeCommand($this);
         $this->mv       = new Command\MvCommand($this);
         $this->pull     = new Command\PullCommand($this);
