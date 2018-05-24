@@ -262,7 +262,7 @@ class Git
 
     /**
      * Gets the Git repository path
-     * 
+     *
      * @return string
      */
     public function getRepository()
